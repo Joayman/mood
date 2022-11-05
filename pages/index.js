@@ -1,12 +1,13 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
-import { Auth, ThemeSupa } from '@supabase/auth-ui-react'
-import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
+import Head from "next/head";
+import Image from "next/image";
+import styles from "../styles/Home.module.css";
+import { Auth, ThemeSupa } from "@supabase/auth-ui-react";
+import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
+import Account from "../components/Account";
 
 export default function Home() {
-  const session = useSession()
-  const supabase = useSupabaseClient()
+  const session = useSession();
+  const supabase = useSupabaseClient();
 
   return (
     <div className={styles.container}>
@@ -21,19 +22,15 @@ export default function Home() {
           Welcome to <a href="#">Mood</a>
         </h1>
 
-        <p className={styles.description}>
-          Login to get started
-        </p>
-
         <div className={styles.grid}>
           {!session ? (
-            <Auth
-              supabaseClient={supabase}
-              providers={['spotify']}
-              appearance={{theme: ThemeSupa}}
+              <Auth
+                supabaseClient={supabase}
+                providers={["spotify"]}
+                appearance={{ theme: ThemeSupa }}
               />
           ) : (
-            <p>Account page will go here.</p>
+            <Account session={session} /> 
           )}
         </div>
       </main>
@@ -44,12 +41,12 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
+          Powered by{" "}
           <span className={styles.logo}>
             <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
           </span>
         </a>
       </footer>
     </div>
-  )
+  );
 }
