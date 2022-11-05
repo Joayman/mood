@@ -1,13 +1,19 @@
-import { Auth } from '@supabase/ui'
-import { supabase } from '../lib/initSupabase'
-import './../style.css'
+import '../styles/globals.css'
+import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs'
+import { SessionContextProvider } from '@supabase/auth-helpers-react'
+import { useState } from 'react'
 
-export default function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps }) {
+  const [supabaseClient] = useState(() => createBrowserSupabaseClient())
+
   return (
-    <main className={'dark'}>
-      <Auth.UserContextProvider supabaseClient={supabase}>
-        <Component {...pageProps} />
-      </Auth.UserContextProvider>
-    </main>
-  )
+    <SessionContextProvider
+    supabaseClient={supabaseClient}
+    initialSession={pageProps.initialSession}
+    >
+      <Component {...pageProps} />
+    </SessionContextProvider>
+  ) 
 }
+
+export default MyApp
