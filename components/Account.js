@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 import Avatar from "./Avatar";
+import Track from "./Tracks";
 
 export default function Account({ session }) {
   const supabase = useSupabaseClient();
@@ -98,7 +99,7 @@ export default function Account({ session }) {
           updateProfile({ username, website, avatar_url: url });
         }}
       />
-
+      <Track />
       <div>
         <button
           onClick={() => updateProfile({ username, website, avatar_url })}
