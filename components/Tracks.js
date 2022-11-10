@@ -5,7 +5,7 @@ export default function Track() {
   useEffect(() => {
     getTopTracks().then((response) => {
       const { items } = response.json()
-      const tracks = items.slice(0, 10).map((track) => ({
+      const tracks = items?.slice(0, 10).map((track) => ({
         artist: track.artists.map((_artist) => _artist.name).join(", "),
         songUrl: track.external_urls.spotify,
         title: track.name,
@@ -17,7 +17,7 @@ export default function Track() {
     <div>
       <h1>Top Tracks</h1>
       <ul>
-        {tracks.map((track) => (
+        {tracks?.map((track) => (
           <li key={track.songUrl}>
             <a href={track.songUrl}>{track.title}</a> by {track.artist}
           </li>
